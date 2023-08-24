@@ -47,34 +47,11 @@ If you are not sure how to configure your Advanced Navigation Device please refe
 
 Open a new terminal or new tab, navigate to `workspace-folder-name`, and source the setup files:
 ```
-source /opt/ros/humble/setup.bash
-. install/setup.bash
+source ./install/setup.bash
+sudo chmod a+rw /dev/tty/USB0
+ros2 launch aqua2_launch orientus_imu_launch.py
 ```
-
-- Run the Driver in the following manners:
-  1. Baud Rate and Comm Port as arguments:
-     ```
-     usage: ros2 run package_name executable_name [baud_rate] [comm_port]
-        package_name     Name of the ROS package
-        executable_name  Name of the executable
-        baud_rate        The Baud rate configured on the device. Default 115200
-        comm_port        The COM port of the connected device. Default /dev/ttyUSB0
-     ```
-     ***e.g. ros2 run ros2-driver adnav_driver 115200 /dev/ttyUSB0***
-  2. Baud Rate, Comm Port and NTRIP as arguments:
-     ```
-     ros2 run package_name executable_name -B [baud_rate] -D [comm_port] -s [server_url] -m [mountpoint]  -u [username] -p [password]
-       package_name     Name of the ROS package
-       executable_name  Name of the executable
-       -B baud_rate     Baud rate configured on the device. Default 115200
-       -D comm_port     COM port of the connected device. Default /dev/ttyUSB
-       -s server_url    URL of the NTRIP server
-       -m mountpoint    Name of the mountpoint
-       -u username      Username of your NTRIP account
-       -p password      Password of your NTRIP account 
-     ```
-     ***e.g. ros2 run ros2-driver adnav_driver -B 115200 -D /dev/ttyUSB0 -s alldayrtk.com -m MOUNTPOINT_20  -u yourUsername -p yourPassword***
-
+Make sure you ahve aqua2_launch in your src folder
 
 ## Published Topics
 Use RQT Monitor to view published topics. Here you will find details on how to use RQT: https://index.ros.org/doc/ros2/Tutorials/RQt-Overview-Usage/
