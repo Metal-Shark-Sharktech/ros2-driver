@@ -32,7 +32,7 @@ If you require any assistance using this code, please email support@advancednavi
     ```
   - Build your new package:
     ```
-    colcon build --packages-select advanced-navigation-orientus
+    colcon build --packages-select advanced-navigation-orientus-driver
     ```
 
 ## Device Configuration
@@ -57,7 +57,7 @@ Make sure you ahve aqua2_launch in your src folder
 Use RQT Monitor to view published topics. Here you will find details on how to use RQT: https://index.ros.org/doc/ros2/Tutorials/RQt-Overview-Usage/
 - Open a new terminal or new tab and source ROS2 Environment to the current folder:
   ```
-  source /opt/ros/foxy/setup.bash
+  source /opt/ros/humble/setup.bash
   ```
 - Run RQT Monitor by entering the following:
   ```
