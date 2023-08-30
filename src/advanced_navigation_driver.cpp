@@ -158,7 +158,7 @@ int main(int argc, char * argv[])
 	sensor_msgs::msg::Imu imu_msg;
 	imu_msg.header.stamp.sec = 0;
 	imu_msg.header.stamp.nanosec = 0;
-	imu_msg.header.frame_id = "imu";
+	imu_msg.header.frame_id = "aqua_base";
 	imu_msg.orientation.x = 0.0;
 	imu_msg.orientation.y = 0.0;
 	imu_msg.orientation.z = 0.0;
@@ -249,7 +249,7 @@ int main(int argc, char * argv[])
   	// Intialising for the log files
 	rawtime = time(NULL);
 	timeinfo = localtime(&rawtime);
-	sprintf(filename, "Log_%02d-%02d-%02d_%02d-%02d-%02d.anpp", timeinfo->tm_year-100, timeinfo->tm_mon+1, timeinfo->tm_mday, timeinfo->tm_hour, timeinfo->tm_min, timeinfo->tm_sec);
+	sprintf(filename, "/home/aqua/orientus_logs/Log_%02d-%02d-%02d_%02d-%02d-%02d.anpp", timeinfo->tm_year-100, timeinfo->tm_mon+1, timeinfo->tm_mday, timeinfo->tm_hour, timeinfo->tm_min, timeinfo->tm_sec);
 	log_file = fopen(filename, "wb");
 
   	// Initialise packets
@@ -429,13 +429,14 @@ int main(int argc, char * argv[])
 						// IMU
 						imu_msg.header.stamp.sec=system_state_packet.unix_time_seconds;
 						imu_msg.header.stamp.nanosec=system_state_packet.microseconds*1000;
-						imu_msg.header.frame_id=imu_frame_id;
+						imu_msg.header.frame_id="aqua_base";
 						// Using the RPY orientation as done by cosama
 						orientation.setRPY(
 							system_state_packet.orientation[0],
 							system_state_packet.orientation[1],
-							PI/2.0f - system_state_packet.orientation[2] //REP 103
-						);
+							/*PI/2.0f - */system_state_packet.orientation[2] //REP 103
+							// NXD: Removed 'PI/2.0f -' so IMU topic orientation conforms to what we expect with Aqua, otherwise yaw is inverted
+ 						);
 						imu_msg.orientation.x = orientation[0];
 						imu_msg.orientation.y = orientation[1];
 						imu_msg.orientation.z = orientation[2];
